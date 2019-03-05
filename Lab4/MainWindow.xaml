@@ -7,6 +7,13 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <TextBox x:Name="vod" HorizontalAlignment="Left" Height="23" Margin="37,34,0,0" TextWrapping="Wrap" Text="Enter the number" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="add_button" Content="Add" HorizontalAlignment="Left" Margin="82,73,0,0" VerticalAlignment="Top" Width="75" Click="add_button_Click"/>
+        <ListBox x:Name="stack" HorizontalAlignment="Left" Height="104" Margin="37,116,0,0" VerticalAlignment="Top" Width="120"/>
+        <Menu x:Name="menu" HorizontalAlignment="Left" Height="59" Margin="184,34,0,0" VerticalAlignment="Top" Width="80">
+            <MenuItem Header="save" Click="MenuItem_Click"/>
+            <MenuItem Header="download" Click="MenuItem_Click_1"/>
+        </Menu>
+
     </Grid>
 </Window>
