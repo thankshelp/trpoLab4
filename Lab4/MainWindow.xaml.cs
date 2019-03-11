@@ -21,7 +21,7 @@ namespace Lab4
     /// </summary>
     public partial class MainWindow : Window
     {
-        string c;
+        int c;
 
         public MainWindow()
         {
@@ -30,11 +30,47 @@ namespace Lab4
 
         private void add_button_Click(object sender, RoutedEventArgs e)
         {
-            c = vod.Text;
+            try
+            {
+                c = int.Parse(vod.Text);
+                if(easy(c) != true)
+                {
+                    throw new ArgumentException("Not a prime number");
+                }
+                stack.Items.Add(c);
+                vod.Text = "";
+            }
+            catch (FormatException)
+            {
+                vod.Text = "Error";
+            }
+            catch (ArgumentException ex)
+            {
+                vod.Text = ex.Message;
+            }
+        }
 
-            stack.Items.Add(c);
+        static bool easy(int c)
+        {
+            bool z;
+            int q = 0;
 
-            vod.Text = "";
+            for(int i = 1; i < c; i++)
+            {
+                if (c % i == 0)
+                    q++;
+            }
+
+            if (q < 3)
+            {
+                z = true;
+                return z;
+            }
+            else
+            {
+                z = false;
+                return z;
+            }
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
