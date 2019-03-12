@@ -33,44 +33,37 @@ namespace Lab4
             try
             {
                 c = int.Parse(vod.Text);
-                if(easy(c) != true)
+                if (easy(c) == false)
                 {
-                    throw new ArgumentException("Not a prime number");
+                    MessageBox.Show("not as easy as it seems");
                 }
-                stack.Items.Add(c);
+                else stack.Items.Add(c);
+
+                //stack.Items.Add(c);
                 vod.Text = "";
             }
             catch (FormatException)
             {
-                vod.Text = "Error";
+                MessageBox.Show("Error format");
             }
             catch (ArgumentException ex)
             {
-                vod.Text = ex.Message;
+                MessageBox.Show(ex.Message);
             }
         }
 
         static bool easy(int c)
         {
-            bool z;
-            int q = 0;
+            if (c < 1) throw new ArgumentException("number must be > 1");
 
-            for(int i = 1; i < c; i++)
+            for (int i = 1; i <= c; i++)
             {
                 if (c % i == 0)
-                    q++;
+                    return false;
             }
 
-            if (q < 3)
-            {
-                z = true;
-                return z;
-            }
-            else
-            {
-                z = false;
-                return z;
-            }
+            return true;
+
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -87,7 +80,7 @@ namespace Lab4
             {
                 foreach (string line in l)
                     outputFile.WriteLine(line);
-                
+
             }
         }
 
@@ -99,17 +92,44 @@ namespace Lab4
             dlg.Filter = "Text document (.txt)|*.txt";
             dlg.ShowDialog();
 
-            string line;
-
-            System.IO.StreamReader file = new System.IO.StreamReader(dlg.FileName);
-
-            while((line = file.ReadLine()) != null)
+            try
             {
-                stack.Items.Add(line);
-            }
-            file.Close();
-        }
+                using (StreamReader file = new StreamReader (dlg.FileName))
+                {
+                    string line;
+                    
+                        while ((line = file.ReadLine()) != null)
+                        {
+                            try
+                            {
+                                int c = int.Parse(line);
+                                if (easy(c) == false)
+                                {
+                                    MessageBox.Show("not as easy as it seems");
+                                }
+                                else stack.Items.Add(c);
+                           
+                            }
+                            catch (FormatException)
+                            {
+                            MessageBox.Show("Error format");
+                            }
+                            catch (ArgumentException ed)
+                            {
+                                MessageBox.Show(ed.Message);
+                            }
+                        }
 
-        
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("The file could not be read");
+            }
+        }
     }
 }
+
+        
+    
+
